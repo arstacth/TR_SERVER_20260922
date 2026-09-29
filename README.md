@@ -9,7 +9,7 @@ This repository contains the **source code** and **database scripts**. Pre-built
 ## Features
 
 - Multi-process server layout (load balance, agent, room, relay, community)
-- MySQL-backed game data (`tr_game_db`, `tr_game_db_log`)
+- MariaDB-backed game data (`tr_game_db`, `tr_game_db_log`)
 - Configurable ports, caps, and optional hash check via `settings.ini`
 
 ---
@@ -19,7 +19,7 @@ This repository contains the **source code** and **database scripts**. Pre-built
 | Component | Notes |
 |-----------|--------|
 | **OS** | Windows 10/11 (64-bit recommended) |
-| **Database** | MySQL or MariaDB with `utf8mb4` |
+| **Database** | [MariaDB 10.4.28](https://mariadb.org/) with `utf8mb4` |
 | **Runtime** | [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/net48) |
 | **Build (optional)** | Visual Studio 2019/2022 or Build Tools, MSBuild, .NET Framework developer pack |
 
@@ -30,7 +30,7 @@ This repository contains the **source code** and **database scripts**. Pre-built
 1. Download **`TR_SERVER_20260922.rar`** from [Releases → 20260922](https://github.com/arstacth/TR_SERVER_20260922/releases/tag/20260922).
 2. Extract to a folder (for example `C:\TR_SERVER_20260922`).
 3. Set up the database (see [Database setup](#database-setup)).
-4. Edit **`settings.ini`** (MySQL connection string and IPs if not running locally).
+4. Edit **`settings.ini`** (MariaDB connection string and IPs if not running locally).
 5. Run **`START_SERVER.bat`** to launch all services.
 
 To stop servers, use **`STOP_SERVER.bat`** or **`RESTART_SERVERS.cmd`**.
@@ -85,7 +85,7 @@ Point your compatible **R186632** client at your server IP and load-balance port
 
 ## Database setup
 
-Scripts are in the **`database/`** folder:
+Use **MariaDB 10.4.28**. Scripts are in the **`database/`** folder:
 
 1. Create empty databases:
    ```sql
@@ -95,7 +95,7 @@ Scripts are in the **`database/`** folder:
    - **`tr_game_db_utf8mb4.sql`** — main game database (large; LFS in git)
    - **`tr_game_db_log_utf8mb4.sql`** — log database
 
-Example (adjust user, host, and paths):
+Example with MariaDB 10.4.28 client tools (adjust user, host, and paths):
 
 ```bat
 mysql -u root -p < database\make_db.sql
@@ -138,7 +138,7 @@ RelayServer/           Relay source
 CommunityAgentServer/  Community agent source
 LocalCommons/          Shared code
 packages/              Referenced third-party DLLs
-database/              MySQL scripts
+database/              MariaDB scripts
 ```
 
 ---
@@ -147,7 +147,7 @@ database/              MySQL scripts
 
 - **Build fails (missing targeting pack)** — Install the .NET Framework 4.8 Developer Pack; `BUILD.bat` tries to detect an installed targeting pack.
 - **EXE locked on rebuild** — Stop all server processes (`STOP_SERVER.bat`) before running `BUILD.bat`.
-- **Cannot connect to MySQL** — Verify service is running, credentials, and that `tr_game_db` was imported.
+- **Cannot connect to MariaDB** — Verify MariaDB 10.4.28 is running, credentials, and that `tr_game_db` was imported.
 - **Clone missing large SQL** — Run `git lfs install` and `git lfs pull`.
 
 ---
