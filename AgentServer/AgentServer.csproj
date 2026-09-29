@@ -1,0 +1,1161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7F01B38D-2430-4E6D-A9F8-FE97640933D7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AgentServer</RootNamespace>
+    <AssemblyName>AgentServer</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Akka">
+      <HintPath>..\packages\Akka.dll</HintPath>
+    </Reference>
+    <Reference Include="Akka.Remote">
+      <HintPath>..\packages\Akka.Remote.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Akka.Logger.Serilog">
+      <HintPath>..\packages\Akka.Logger.Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Common">
+      <HintPath>..\packages\DotNetty.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Buffers">
+      <HintPath>..\packages\DotNetty.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Transport">
+      <HintPath>..\packages\DotNetty.Transport.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Codecs">
+      <HintPath>..\packages\DotNetty.Codecs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Handlers">
+      <HintPath>..\packages\DotNetty.Handlers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\packages\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Akka.Quartz.Actor">
+      <HintPath>..\packages\Akka.Quartz.Actor.dll</HintPath>
+    </Reference>
+    <Reference Include="Crc32.NET">
+      <HintPath>..\packages\Crc32.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="FlatBuffers">
+      <HintPath>..\packages\FlatBuffers.dll</HintPath>
+    </Reference>
+    <Reference Include="INIFileParser">
+      <HintPath>..\packages\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NetMsg">
+      <HintPath>..\packages\NetMsg.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\packages\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File">
+      <HintPath>..\packages\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsFirewallHelper">
+      <HintPath>..\packages\WindowsFirewallHelper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AgentServer.Cryptography\Encrypt.cs" />
+    <Compile Include="AgentServer.Database\DBHelp.cs" />
+    <Compile Include="AgentServer.Database\DBInit.cs" />
+    <Compile Include="AgentServer.Database\MySqlCommandHelper.cs" />
+    <Compile Include="AgentServer.Dialog\GMTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgentServer.Dialog\GMTool_DisconnectUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgentServer.Dialog\GMTool_GiveItemDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgentServer.Dialog\GMTool_GiveUserPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgentServer.EasyAntiCheat.Serv\Client.cs" />
+    <Compile Include="AgentServer.EasyAntiCheat.Serv\ClientStatus.cs" />
+    <Compile Include="AgentServer.EasyAntiCheat.Serv\ClientStatusUpdate.cs" />
+    <Compile Include="AgentServer.EasyAntiCheat.Serv\EasyAntiCheatServer.cs" />
+    <Compile Include="AgentServer.EasyAntiCheat.Serv\EpochTime.cs" />
+    <Compile Include="AgentServer.EasyAntiCheat.Serv\LogLevel.cs" />
+    <Compile Include="AgentServer.EasyAntiCheat.Serv\NativeModule.cs" />
+    <Compile Include="AgentServer.EasyAntiCheat.Serv\PlayerRegisterFlags.cs" />
+    <Compile Include="AgentServer.EasyAntiCheat.Serv\ServerConfiguration.cs" />
+    <Compile Include="AgentServer.EasyAntiCheat\EACServer.cs" />
+    <Compile Include="AgentServer.Function\FlagsHelper.cs" />
+    <Compile Include="AgentServer.Function\ListExtensions.cs" />
+    <Compile Include="AgentServer.Function\Session.cs" />
+    <Compile Include="AgentServer.Holders\AccountHolder.cs" />
+    <Compile Include="AgentServer.Holders\AnniversaryHolder.cs" />
+    <Compile Include="AgentServer.Holders\CapsuleMachineHolder.cs" />
+    <Compile Include="AgentServer.Holders\CapybaraShopHolder.cs" />
+    <Compile Include="AgentServer.Holders\CombinationShopHolder.cs" />
+    <Compile Include="AgentServer.Holders\CombinationShopManager.cs" />
+    <Compile Include="AgentServer.Holders\ESTIMATED_REMAIN_TIME_FOR_LOGI.cs" />
+    <Compile Include="AgentServer.Holders\EventPickBoardHolder.cs" />
+    <Compile Include="AgentServer.Holders\FarmHolder.cs" />
+    <Compile Include="AgentServer.Holders\FishingHolder.cs" />
+    <Compile Include="AgentServer.Holders\GachaHolder.cs" />
+    <Compile Include="AgentServer.Holders\HotTimeHolder.cs" />
+    <Compile Include="AgentServer.Holders\ItemCubeHolder.cs" />
+    <Compile Include="AgentServer.Holders\ItemHolder.cs" />
+    <Compile Include="AgentServer.Holders\ItemTradingHolder.cs" />
+    <Compile Include="AgentServer.Holders\LoginTrafficActor.cs" />
+    <Compile Include="AgentServer.Holders\LoginTrafficManager.cs" />
+    <Compile Include="AgentServer.Holders\MapHolder.cs" />
+    <Compile Include="AgentServer.Holders\MissionHolder.cs" />
+    <Compile Include="AgentServer.Holders\MissionManager.cs" />
+    <Compile Include="AgentServer.Holders\NOTIFY_BE_WAIT_LOGIN_STATE_ACK.cs" />
+    <Compile Include="AgentServer.Holders\QuizQuizHolder.cs" />
+    <Compile Include="AgentServer.Holders\ReLoginUserInfo.cs" />
+    <Compile Include="AgentServer.Holders\RoomHolder.cs" />
+    <Compile Include="AgentServer.Holders\ScissorsRockPaperHolder.cs" />
+    <Compile Include="AgentServer.Holders\ServerSettingHolder.cs" />
+    <Compile Include="AgentServer.Holders\ShopHolder.cs" />
+    <Compile Include="AgentServer.Holders\ShopManager.cs" />
+    <Compile Include="AgentServer.Holders\SingleChallengeHolder.cs" />
+    <Compile Include="AgentServer.Holders\TalesKnightHolder.cs" />
+    <Compile Include="AgentServer.Holders\ThankOfferingEnd.cs" />
+    <Compile Include="AgentServer.Holders\ThankOfferingStart.cs" />
+    <Compile Include="AgentServer.Holders\ThankOfferingSystem.cs" />
+    <Compile Include="AgentServer.Holders\TowerEventHolder.cs" />
+    <Compile Include="AgentServer.Holders\TowerEventReady.cs" />
+    <Compile Include="AgentServer.Network.Connection\ClientConnection.cs" />
+    <Compile Include="AgentServer.Network\ProtocolDump.cs" />
+    <Compile Include="AgentServer.Packet.RelayServer\NET_RelayRegistrationResult.cs" />
+    <Compile Include="AgentServer.Packet.RelayServer\NET_RemoveClient.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\AG_TO_RM_TO_User.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\AG_TO_RM_TO_User_ME.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\eRoom_CHANGE_USER_ACTIVE_ITEMS.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\eRoom_CHANGE_USER_ACTIVE_ITEM_.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\eRoom_CHANGE_USER_AVATAR_LOCK.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\eRoom_CHANGE_USER_ITEM_ATTR.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\eRoom_ROOMUSER_ACTIVE_FUNCITEM.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\eRoom_UPDATE_AVATAR_INFO.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\eRoom_UPDATE_ITEM_ONOFF_INFO.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_CancelLookingForGuildMatch.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_ChangeFarmMapTypeBySlot.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_ChangeFarmSkybox.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_ChooseGuildForMatch.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_ClearUserFarmMapInfo.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_CreateFarmRoom_PlayerInfo.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_CreatePublicFarmRoom_Player.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_GameEndInfo.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_GameRoomUpdateGuild.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_GetPlayerPosList.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_IncreaseAnimalSize.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_KickPlayer.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_LookingForGuildMatch.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_ModifyFarmMapInfo.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_PassVertification.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_PickGuildForMatch.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_PlayerEnterRoom.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_PlayerLeaveRoom.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_ReloadFarmMapInfo.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_RestoreAnimalDefaultSize.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_SendPlayerInfo.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RM_UpdateFarmFishingReward.cs" />
+    <Compile Include="AgentServer.Packet.RoomServer\RoomServerHandle.cs" />
+    <Compile Include="AgentServer.Packet.Send\AcceptFriendOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\AcceptPartyInviteFail_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\AcceptPartyInvite_Ack1.cs" />
+    <Compile Include="AgentServer.Packet.Send\AcquireEmblem_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\AddChallengingMission_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\AddFriendFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\AddFriendGroup_742001.cs" />
+    <Compile Include="AgentServer.Packet.Send\AddFriendSuccess.cs" />
+    <Compile Include="AgentServer.Packet.Send\AlchemistDisjoint_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\AlchemistDisjoint_Fail.cs" />
+    <Compile Include="AgentServer.Packet.Send\AlchemistEnchantGrade_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\AlchemistEnchantGrade_Fail.cs" />
+    <Compile Include="AgentServer.Packet.Send\AlchemistHistory_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\AlchemistMix_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\AlchemistMix_Fail.cs" />
+    <Compile Include="AgentServer.Packet.Send\Anniversary_AddObjectValue_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Anniversary_GetObjectValue_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Anniversary_GetReveivedRewardG.cs" />
+    <Compile Include="AgentServer.Packet.Send\Anniversary_InegratedRewardGiv.cs" />
+    <Compile Include="AgentServer.Packet.Send\Anniversary_ObjectAction_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Anniversary_ReceiveReward_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\AnubisOpenTime.cs" />
+    <Compile Include="AgentServer.Packet.Send\AnubisUserPoint.cs" />
+    <Compile Include="AgentServer.Packet.Send\ApplyHotTimeEventFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\ApplyHotTimeEventSuccess.cs" />
+    <Compile Include="AgentServer.Packet.Send\Archives_Exchange_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Archives_GiveReward_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Archives_UserInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\AssaultModeAttackLimitInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\AssaultRaidOpenTime.cs" />
+    <Compile Include="AgentServer.Packet.Send\AssaultRaidPoint.cs" />
+    <Compile Include="AgentServer.Packet.Send\Attendance_Info_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Attendance_Reward_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\NewAttendanceGetUserInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\NewAttendanceRecvRewardAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\AvatarLock_Load_New.cs" />
+    <Compile Include="AgentServer.Packet.Send\AvatarLock_Save_New.cs" />
+    <Compile Include="AgentServer.Packet.Send\BlockFriendOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\BuyFarmSlotOK_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\CancelAddFriendOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\CapsuleMachineNotice.cs" />
+    <Compile Include="AgentServer.Packet.Send\CapsuleMachineV2InfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\CapsuleMachineV2PickUpAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\CapsuleMachineV2GiveRewardAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\ReceiveItemFailAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\CapybaraShopAcks.cs" />
+    <Compile Include="AgentServer.Packet.Send\CashPointAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\CardPackOpen.cs" />
+    <Compile Include="AgentServer.Packet.Send\ChangeCoupleRingACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ChangeCoupleRingFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\CheckDivinationFree_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\CheckGuildNameACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\CheckProposeInfoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ClearFarmSlot_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\CM_GetGuildMemberACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\CM_UpdateGuildMemberACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\CollectFishedItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\CollectFishedItemAns.cs" />
+    <Compile Include="AgentServer.Packet.Send\CollectFishedItemFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\CollectionMissionInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\COMBINATION_SHOP_EXCHANGE_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\COMBINATION_SHOP_GET_ITEM_DETA.cs" />
+    <Compile Include="AgentServer.Packet.Send\COMBINATION_SHOP_GET_LIMIT_COU.cs" />
+    <Compile Include="AgentServer.Packet.Send\COMBINATION_SHOP_GET_USE_INFO_.cs" />
+    <Compile Include="AgentServer.Packet.Send\COMBINATION_SHOP_NOTIFY.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompetitionEvent_NextGameInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompetitionEvent_PartyInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompetitionEvent_PartyJoinOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompetitionEvent_PartyUserInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompetitionEvent_PointReward.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompetitionEvent_RoomKindPlaye.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompetitionEvent_TodayGameInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\NewSeasonPass_UserInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompetitionPartyInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompetitionPartyUserInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\CompleteMission_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\CoupleInfoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\CreatePublicFarmFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\CubeInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\CubeItemAccept.cs" />
+    <Compile Include="AgentServer.Packet.Send\CubeOpen.cs" />
+    <Compile Include="AgentServer.Packet.Send\CurrentGameMoney_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DailyMissionFinishedInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DailyMissionInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\DailyMissionUserMissionDeleteN.cs" />
+    <Compile Include="AgentServer.Packet.Send\DeclineAddFriendOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DeleteFriendFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\DeleteFriendOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DeleteReceiveMessageOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DelFriendGroup_742003.cs" />
+    <Compile Include="AgentServer.Packet.Send\DelGuildFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DelGuildOKACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DiceBoard_Draw_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DiceBoard_FillGauge_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DiceBoard_Reset_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DisconnectPacket.cs" />
+    <Compile Include="AgentServer.Packet.Send\DissolveFamilyOKACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DissolveFamilyOKACK2.cs" />
+    <Compile Include="AgentServer.Packet.Send\DOLIMPAN_MY_INFO_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DOLIMPAN_RECEIVE_REWARD__ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DOLIMPAN_RESET_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DOLIMPAN_TURN_BOARD_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DOLIMPAN_USE_CHARGE_COUPON_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DyedItemList.cs" />
+    <Compile Include="AgentServer.Packet.Send\DyeItemOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\DyeItemRestoreOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\EAC_DisconnectPacket.cs" />
+    <Compile Include="AgentServer.Packet.Send\EnchantItemInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\eServer_COUPLE_CREATE_COUPLE_I.cs" />
+    <Compile Include="AgentServer.Packet.Send\eServer_GET_EXP_REQ.cs" />
+    <Compile Include="AgentServer.Packet.Send\eServer_GET_ITEMMSG_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\eServer_GET_ITEM_COLLECTION_IN.cs" />
+    <Compile Include="AgentServer.Packet.Send\eServer_GET_LADDER_INFO_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\eServer_GET_SERVER_TIME_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\eServer_GET_USER_CHARACTER_ATT.cs" />
+    <Compile Include="AgentServer.Packet.Send\eServer_ITEM_COLLECTION_ADD_AC.cs" />
+    <Compile Include="AgentServer.Packet.Send\eServer_ITEM_COLLECTION_USER_L.cs" />
+    <Compile Include="AgentServer.Packet.Send\EventPickBoardGiveFail_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\EventPickBoardGive_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\EventPickBoardUseFail_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\EventPickBoardUserInfoFail_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\EventPickBoardUserInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\EventPickBoardUse_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ExchangeItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\ExpiredItemInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\FamilyInfoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\FarmExchangeItemFail_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\FarmExchangeItem_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\FarmGetUserInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\FarmItemAttr_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\FarmItemList.cs" />
+    <Compile Include="AgentServer.Packet.Send\FarmPoint.cs" />
+    <Compile Include="AgentServer.Packet.Send\FirstLoginMakeStartCharacterFa.cs" />
+    <Compile Include="AgentServer.Packet.Send\FirstLoginMakeStartCharacterOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\FirstLoginSetNewNickNameFail_0.cs" />
+    <Compile Include="AgentServer.Packet.Send\FirstLoginSetNewNickNameOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\FirstLogin_CreateFarm_GetMyFar.cs" />
+    <Compile Include="AgentServer.Packet.Send\FishedItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\FishedItemFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\FishingPacket.cs" />
+    <Compile Include="AgentServer.Packet.Send\FishingPacketFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\FishNetInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\FishMyRankingAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\FishRecordInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\FronTier_SchduleInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\GameRoomUpdateGuildACK3.cs" />
+    <Compile Include="AgentServer.Packet.Send\GameRoom_CreateRoomError.cs" />
+    <Compile Include="AgentServer.Packet.Send\GameRoom_EnterRoomError.cs" />
+    <Compile Include="AgentServer.Packet.Send\GameRoom_FF3F02.cs" />
+    <Compile Include="AgentServer.Packet.Send\GameRoom_GetRoomList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GameRoom_GetVertificationInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\GameRoom_JoinGuildMatch.cs" />
+    <Compile Include="AgentServer.Packet.Send\GameRoom_RandomEnterRoomError.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetAcceptedFriendList_7406.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetCommunityAgentServer.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetCoupleRankRange_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetCurrentMapFarmCraftItem_Sho.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetDiceBoardList_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetDiceBoardUserInfoAndRewardI.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetDiceBoardUserInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetExchangeSystemOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetExtraAbilities_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetFarmFishingReward_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetFarmPortalInfoOK_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetFarmSlot_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetFriendGroupList_7420.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetGuildMissionList_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetGuildUserInfoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetHuMongPickBoardInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetLobbyQuestEventNotify.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetLobbyQuestUserInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMachineInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMachineInfoFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMachineInfoResetting.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMachineSelectItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMachineSelectItemFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMyCoupleRankInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMyFarmItemResponse.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMyRankInfo_ALL.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMyTalesKnightsGroupInfo_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMyTalesKnightsGroupName_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetMyTalesKnightUnitInfo_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetOfficialCompetitionOpenTime.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetOption.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetPartyJoinRequestList_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetPartyUserList_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetRankInfo_ALL.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetReceiveListOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetRequestedToMe_741E.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetRoomKindAttr_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetSendListOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopBuyAddBenefitList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopBuyAddSellPriceList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopBuyLimitCountList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopCategoryDisplayItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopCategoryList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopDisplayDateLimitList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopDisplayItemList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopItemSellList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopPurchasingLimitList_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopUserBuyList_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetShopVipLevelNotify.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetUserAlarmInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetUserDailyMission_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetUserInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetUserMissionInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetUserPoint.cs" />
+    <Compile Include="AgentServer.Packet.Send\GetWaitAcceptFriendList_7407.cs" />
+    <Compile Include="AgentServer.Packet.Send\GET_ACTIVE_FUNC_ITEM_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GET_ACTIVE_FUNC_ITEM_IN_POSITI.cs" />
+    <Compile Include="AgentServer.Packet.Send\GET_ACTIVE_FUNC_ITEM_LIST_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GET_AVATAR_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GET_AVATAR_FAIL_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GET_AVATAR_ITEMS_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GET_AVATAR_ITEM_LIST_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GET_AVATAR_ITEM_ONE_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GET_USER_ITEM_ATTR_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GroupMoveMember.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildCancelProposeACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildFarmInfoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildFarmItemAttr_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildFarmNoticeBoard_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildGeProposeListACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildGetContributionPointACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildGetListACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildGetPointACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildInFoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildJoinRequestListACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildMatch_GetRankMyGuild.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildMatch_GetRankRange.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildMemberUpdateACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildMissionUserMissionDeleteN.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_BuyItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_ChangeMyConstributi.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailBuyItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailChangeMyConstri.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGetExpenseList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGetGivePossible.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGetGuildManageT.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGetInvestorMana.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGetItemContribu.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGetMakeProgress.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGetMakeStandByI.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGetPlantItemLis.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGetStorageExten.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailGiveGift.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailInvestGuildMana.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_FailRegisterItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GetExpenseList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GetGivePossibleUser.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GetGuildManageTR.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GetInvestorManageTR.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GetItemContribution.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GetMakeProgressItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GetMakeStandByItemL.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GetPlantItemList.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GetStorageExtend.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_GiveGift.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_InvestGuildManageTR.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildPlant_RegisterItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildProcessJoinRequestACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildProcessJoinRequestACK2.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildProcessJoinRequestFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildProcessLeaveACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\GuildProcessLeaveFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Guild_AddGuildSkill_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Guild_AddGuildSkill_Fail_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Guild_LevelUP_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Guild_ResetGuildSkill_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Guild_ResetGuildSkill_Fail_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Guild_UseGiftBoxACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\HardeningDone.cs" />
+    <Compile Include="AgentServer.Packet.Send\hasTalesKnightUnit_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\HotKeyGetOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\HotKeySetOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\HotTimeEventDelete.cs" />
+    <Compile Include="AgentServer.Packet.Send\HotTimeInfos.cs" />
+    <Compile Include="AgentServer.Packet.Send\HuMongPickBoard_GiveItem_Fail.cs" />
+    <Compile Include="AgentServer.Packet.Send\HuMongPickBoard_GiveItem_OK.cs" />
+    <Compile Include="AgentServer.Packet.Send\HuMongPickBoard_PickItem_Fail.cs" />
+    <Compile Include="AgentServer.Packet.Send\HuMongPickBoard_PickItem_OK.cs" />
+    <Compile Include="AgentServer.Packet.Send\IncreaseStrengthenCount_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\InitProposeInfoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ItemStrengthen_CleanSlot_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ItemStrengthen_CleanSlot_Faile.cs" />
+    <Compile Include="AgentServer.Packet.Send\ItemStrengthen_StrengthenSlot_.cs" />
+    <Compile Include="AgentServer.Packet.Send\ItemTransformFail_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ItemTransform_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ITEM_ONOFF_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ITEM_TRADING_CHECK_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ITEM_TRADING_COMPLETE_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ITEM_TRADING_TRADE_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\KeepMessageOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\LevelUPNotice.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginBlackList.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginCheck.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginError.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginFarm_GetMyFarmInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginGenKey.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginGetNickName_0X1C.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginGetUserCash.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUnknownResponse1.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUnknownResponse2.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUnknownResponse3.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUnknownResponse4.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUnknownResponse5.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUnknownResponse7.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUnknownResponse8.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUnknownResponse9.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUserIndividualRecordGameR.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUserIndividualRecordMisce.cs" />
+    <Compile Include="AgentServer.Packet.Send\LoginUserInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\Login_82_0x83.cs" />
+    <Compile Include="AgentServer.Packet.Send\LOGIN_AUTH_ACK_THAI.cs" />
+    <Compile Include="AgentServer.Packet.Send\Login_FF7F01_0x180.cs" />
+    <Compile Include="AgentServer.Packet.Send\Login_NOTIFY_MY_UDP.cs" />
+    <Compile Include="AgentServer.Packet.Send\GameOptionGetAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\TcpLiveMsgAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\MachineGiveItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\MachineGiveItemFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\MachineKeepItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\StorageUserCountAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\MakeFamilyCheckFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\MakeFamilyCheckOKACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\MakeFamilyOKACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\MakeGuildFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\MakeGuildOKACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\MiniGameFishing_Ready.cs" />
+    <Compile Include="AgentServer.Packet.Send\MiniGameFishing_ReadyNotify.cs" />
+    <Compile Include="AgentServer.Packet.Send\MiniGameFishing_Result.cs" />
+    <Compile Include="AgentServer.Packet.Send\MiniGameFishing_ResultNotify.cs" />
+    <Compile Include="AgentServer.Packet.Send\MissionGiveReward_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyCoupleInfoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyCoupleNameACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyJoinLimitLevelACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyJoinLimitLevelFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyJoinMethodACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyJoinMethodFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyMemberGradeACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyMemberGradeFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyMemoOK_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyMessageACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyMessageFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifyObjectValueInfoOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ModifytFriendGroup_742002.cs" />
+    <Compile Include="AgentServer.Packet.Send\MyFarmItemCount.cs" />
+    <Compile Include="AgentServer.Packet.Send\MyFarmItemList.cs" />
+    <Compile Include="AgentServer.Packet.Send\MyKnightsCallComeBack_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\MyroomSetCharSettingFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\MyroomSetCharSettingOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_AcceptGiftFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_AcceptGiftOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_AddFavorite.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_BuyMyRoomSlotOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_CharacterStatConfirmFai.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_CharacterStatConfirm_AC.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_CharacterStatResetFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_CharacterStatReset_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_CheckExistNewGift.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_FavoriteList.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_FeedPetOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_FFCF0100.cs" />
+    <Compile Include="AgentServer.Packet.Send\MyRoom_GetCharacterList.cs" />
+    <Compile Include="AgentServer.Packet.Send\MyRoom_GetCharacterSetting_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\MyRoom_GetCharacterSetting_Fai.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_GetGiftList_New.cs" />
+    <Compile Include="AgentServer.Packet.Send\MyRoom_GetMyAlchemistCards.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_GetSlotInfoOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_GetStorageGiftList.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_GetStorageKeepingList.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_ItemOnOff_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_PetRebirth_New.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_PetUpgradeOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_RemoveFavorite.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_RepairItemOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_SaveDefaultChar.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_SaveDefaultCharFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_SetSlotItemSettingFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_SetSlotItemSettingOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_StorageGiftACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_StorageReceiveOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_UseExtraAbilityItem_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_UseLuckyBagFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_UseLuckyBagOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\NoticePacket.cs" />
+    <Compile Include="AgentServer.Packet.Send\NP_Byte.cs" />
+    <Compile Include="AgentServer.Packet.Send\OneDayMissionReload_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ParkUseDivination_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ParkUseDivination_Couple_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyAccept_Ack4.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyChangeLeader_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyInviteFail_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyInvite_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyJoinRequestFail_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyJoinRequestReject_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyJoinRequest_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyLeaveOK_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyLeaveUser_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyList_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyNewUser_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyRecruitCancelOK_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyRecruit_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PartyUserList_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PackedEmptyAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\PieroPostboxUserInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\PingTime.cs" />
+    <Compile Include="AgentServer.Packet.Send\PlayerFishedItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\ChangeFarmWeather_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\ExpiredFarmItem_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\PublicFarmList.cs" />
+    <Compile Include="AgentServer.Packet.Send\QuestAdd_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\QuestEventNotify_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\QuestRemove_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\QuestReward_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\QuestUserInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ReadMessageOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\RemoveChallengingMission_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\RemoveCoupleACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\RemoveFarmFishingReward_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\RemoveFarmFishingReward_RoomUp.cs" />
+    <Compile Include="AgentServer.Packet.Send\ReportMessageOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ReportSystemUserInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\ReportSystemUserReportInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\RequestJoinGuildFailACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\RequestJoinGuildInFoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\RoatateMachineNotice.cs" />
+    <Compile Include="AgentServer.Packet.Send\Room_UPDATE_ITEM_ONOFF_INFO.cs" />
+    <Compile Include="AgentServer.Packet.Send\SealEraseISuccess.cs" />
+    <Compile Include="AgentServer.Packet.Send\SearchFarmByUserNumOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\SearchFarmFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\SearchFarmOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\SearchNickName.cs" />
+    <Compile Include="AgentServer.Packet.Send\SearchNickNameFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\SEASON_CHANNEL_SCHEDULE_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\SendMessageFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\SendMessageOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ServerNotReady.cs" />
+    <Compile Include="AgentServer.Packet.Send\ServerSettingChange.cs" />
+    <Compile Include="AgentServer.Packet.Send\SetFarmFishingReward_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\SetFarmFishingReward_RoomUpdat.cs" />
+    <Compile Include="AgentServer.Packet.Send\SetFarmPortalInfoOK_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\SetGameOption.cs" />
+    <Compile Include="AgentServer.Packet.Send\SetGuildMasterMission_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\SetHotTimeEvent.cs" />
+    <Compile Include="AgentServer.Packet.Send\SetWeddingItemACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShopBuyCountResetNotify_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShopBuyFreePassUpdate.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShopBuyFreePassUpdate2.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShopBuyItemFail_New.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShopBuyItem_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\StatSystemMyInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShopClosed.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShopGiftItemError_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShopGiftItemOK_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShopVIPLevelResetNotify.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shop_ItemStrengthen_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shop_OpenSelectivePackage_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShowPage.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_BuyItemOK2.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_ChangeAvatarInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_ChangeCurrentShu.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_ChangeNameOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_ExploreCheck.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_ExploreReward.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_ExploreStartOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_ExploreStopOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_GetGiftOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_GetItemInfoStr.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_GetUserCharacterItemList.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_GetUserItemInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_GetUserStatusInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_HatchOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_LevelUP.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_ManagerAction.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_UseItem.cs" />
+    <Compile Include="AgentServer.Packet.Send\Shu_UseItemFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\ShuWire.cs" />
+    <Compile Include="AgentServer.Packet.Send\SingleChallengeAction.cs" />
+    <Compile Include="AgentServer.Packet.Send\SingleChallengeGoalInOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\SingleChallengeMapSummaryAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\ChallengeMapNPCMatchMapInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\SingleChallengeUserInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\SinglePlay.cs" />
+    <Compile Include="AgentServer.Packet.Send\SinglePlayGoal_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\StartChallengeOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\StoneMountFail.cs" />
+    <Compile Include="AgentServer.Packet.Send\StoneMountSuccess.cs" />
+    <Compile Include="AgentServer.Packet.Send\StoneRemoveSuccess.cs" />
+    <Compile Include="AgentServer.Packet.Send\TalesKnightsAdd_MaxLevel_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\TalesKnightsRewardReceive_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\TalesKnightStageEnter_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\TalesKnightStageInfo_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\TalesKnightsUseExpUpItem_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\TalesKnights_AttackCheck_AddEx.cs" />
+    <Compile Include="AgentServer.Packet.Send\TalesKnights_AttackCheck_Dead_.cs" />
+    <Compile Include="AgentServer.Packet.Send\TalesKnights_AttackCheck_Rewar.cs" />
+    <Compile Include="AgentServer.Packet.Send\TalesKnights_AttackCheck_Unk_A.cs" />
+    <Compile Include="AgentServer.Packet.Send\ThankOffering_OnOff_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ThankOffering_Rank_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ThankOffering_Reward_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\ThankOffering_UserPoint_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\TowerEvent_Notify_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\TowerEvent_UserJoinInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\TutorialChannel_GiveRewardInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\TutorialChannel_UserInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnBlockFriendOK.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownCMPacket1.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownFarmPacket1.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownFarmPacket2.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket1.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket11.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket12.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket13.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket14.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket15.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket16.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket20.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket3.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket4.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket6.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket7.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket8.cs" />
+    <Compile Include="AgentServer.Packet.Send\UnknownPacket9.cs" />
+    <Compile Include="AgentServer.Packet.Send\UpdateCoupleInfo2ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\UpdateCoupleInfoACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\UpdateMission_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\UpdateTalesKnightsGroup_Ack.cs" />
+    <Compile Include="AgentServer.Packet.Send\UpdateTalesKnightsGroup_Name_A.cs" />
+    <Compile Include="AgentServer.Packet.Send\UseCoupleExpAddItemFail_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\UseCoupleExpAddItem_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\UserLevelUPEXPInfo.cs" />
+    <Compile Include="AgentServer.Packet.Send\UserOptionalMissionInfo_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\WeddingDivorceACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\WeddingDivorceRejectACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\WeddingFinishACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\WeddingReadyACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\WeddingSuitForDivorceACK.cs" />
+    <Compile Include="AgentServer.Packet\AlchemistHandle.cs" />
+    <Compile Include="AgentServer.Packet\Anniversary.cs" />
+    <Compile Include="AgentServer.Packet\Archives.cs" />
+    <Compile Include="AgentServer.Packet\ArinHandle.cs" />
+    <Compile Include="AgentServer.Packet\AssaultModeHandle.cs" />
+    <Compile Include="AgentServer.Packet\AttendanceHandle.cs" />
+    <Compile Include="AgentServer.Packet\AvatarLock.cs" />
+    <Compile Include="AgentServer.Packet\CapybaraShopHandle.cs" />
+    <Compile Include="AgentServer.Packet\CombinationShopHandle.cs" />
+    <Compile Include="AgentServer.Packet\CommandHandle.cs" />
+    <Compile Include="AgentServer.Packet\CommunityHandle.cs" />
+    <Compile Include="AgentServer.Packet\CompetitionEventHandle.cs" />
+    <Compile Include="AgentServer.Packet\CoupleHandle.cs" />
+    <Compile Include="AgentServer.Packet\CRankListData.cs" />
+    <Compile Include="AgentServer.Packet\CubeHandle.cs" />
+    <Compile Include="AgentServer.Packet\DiceBoardHandle.cs" />
+    <Compile Include="AgentServer.Packet\DolimpanHandle.cs" />
+    <Compile Include="AgentServer.Packet\DyeingHandle.cs" />
+    <Compile Include="AgentServer.Packet\eAlchemistEnchantGradeFailedRe.cs" />
+    <Compile Include="AgentServer.Packet\eAlchemistMixFailedReason.cs" />
+    <Compile Include="AgentServer.Packet\eCombinationShopResult.cs" />
+    <Compile Include="AgentServer.Packet\eGiftItemFailed.cs" />
+    <Compile Include="AgentServer.Packet\EnchantSystem.cs" />
+    <Compile Include="AgentServer.Packet\eShopFailed_REASON.cs" />
+    <Compile Include="AgentServer.Packet\EventPickBoardHandle.cs" />
+    <Compile Include="AgentServer.Packet\ExchangeHandle.cs" />
+    <Compile Include="AgentServer.Packet\FarmHandle.cs" />
+    <Compile Include="AgentServer.Packet\FarmRoomHandle.cs" />
+    <Compile Include="AgentServer.Packet\FirstLoginHandle.cs" />
+    <Compile Include="AgentServer.Packet\FishingHandle.cs" />
+    <Compile Include="AgentServer.Packet\GachaHandle.cs" />
+    <Compile Include="AgentServer.Packet\GameModeHandle.cs" />
+    <Compile Include="AgentServer.Packet\GameRoomEvent.cs" />
+    <Compile Include="AgentServer.Packet\GameRoomHandle.cs" />
+    <Compile Include="AgentServer.Packet\GMCommandHandle.cs" />
+    <Compile Include="AgentServer.Packet\GuildFarmHandle.cs" />
+    <Compile Include="AgentServer.Packet\GuildHandle.cs" />
+    <Compile Include="AgentServer.Packet\GuildMatchHandle.cs" />
+    <Compile Include="AgentServer.Packet\GuildPlantHandle.cs" />
+    <Compile Include="AgentServer.Packet\HotTimeHandle.cs" />
+    <Compile Include="AgentServer.Packet\ItemHandle.cs" />
+    <Compile Include="AgentServer.Packet\ItemTradeHandle.cs" />
+    <Compile Include="AgentServer.Packet\LobbyHandle.cs" />
+    <Compile Include="AgentServer.Packet\LoginHandle.cs" />
+    <Compile Include="AgentServer.Packet\MessageBoxHandle.cs" />
+    <Compile Include="AgentServer.Packet\Mission.cs" />
+    <Compile Include="AgentServer.Packet\MyRoomHandle.cs" />
+    <Compile Include="AgentServer.XignCode\XignCodeNative.cs" />
+    <Compile Include="AgentServer.XignCode\XignCodeRuntime.cs" />
+    <Compile Include="AgentServer.XignCode\XignCodeServer.cs" />
+    <Compile Include="AgentServer.Packet\PackedAckMap.cs" />
+    <Compile Include="AgentServer.Packet\LobbyUnhandledHandle.cs" />
+    <Compile Include="AgentServer.Packet\PieroOlympicHandle.cs" />
+    <Compile Include="AgentServer.Packet.Send\LobbyEmptyAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\AloneRunGameOver_ACK.cs" />
+    <Compile Include="AgentServer.Packet.Send\FreePassUserInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\FreePassExpireNotify.cs" />
+    <Compile Include="AgentServer.Packet.Send\SelectShopTradeInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\SelectShopUserInfoAck.cs" />
+    <Compile Include="AgentServer.Packet.Send\PieroOlympicPackets.cs" />
+    <Compile Include="AgentServer.Packet.Send\Myroom_RepairItemFail.cs" />
+    <Compile Include="AgentServer.Packet\ParkHandle.cs" />
+    <Compile Include="AgentServer.Packet\PartyHandle.cs" />
+    <Compile Include="AgentServer.Packet\RankHandle.cs" />
+    <Compile Include="AgentServer.Packet\ShopHandle.cs" />
+    <Compile Include="AgentServer.Packet\ShuSystemHandle.cs" />
+    <Compile Include="AgentServer.Packet\SingleChallengeHandle.cs" />
+    <Compile Include="AgentServer.Packet\TalesKnightHandle.cs" />
+    <Compile Include="AgentServer.Packet\ThankOfferingHandle.cs" />
+    <Compile Include="AgentServer.Packet\TowerEvent.cs" />
+    <Compile Include="AgentServer.Packet\TutorialChannel.cs" />
+    <Compile Include="AgentServer.Packet\UnknownHandle.cs" />
+    <Compile Include="AgentServer.Properties\Resources.cs" />
+    <Compile Include="AgentServer.Properties\Settings.cs" />
+    <Compile Include="AgentServer.Structuring.Attend\AttendanceInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Attend\AttendanceReward.cs" />
+    <Compile Include="AgentServer.Structuring.Attend\UserAttendanceInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Farm\FarmCraftMapData.cs" />
+    <Compile Include="AgentServer.Structuring.Farm\FarmCraftMapItem.cs" />
+    <Compile Include="AgentServer.Structuring.Farm\FarmItem.cs" />
+    <Compile Include="AgentServer.Structuring.Farm\FarmItemAttr.cs" />
+    <Compile Include="AgentServer.Structuring.Farm\FarmMapInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Farm\FarmRankInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Farm\FarmRoomInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Farm\MyFarmInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Fishin\Decoy.cs" />
+    <Compile Include="AgentServer.Structuring.Fishin\DecoyEx.cs" />
+    <Compile Include="AgentServer.Structuring.Fishin\Fish.cs" />
+    <Compile Include="AgentServer.Structuring.Fishin\FishingBait.cs" />
+    <Compile Include="AgentServer.Structuring.Fishin\FishingEquip.cs" />
+    <Compile Include="AgentServer.Structuring.Fishin\FishingItem.cs" />
+    <Compile Include="AgentServer.Structuring.Fishin\UserFishedItem.cs" />
+    <Compile Include="AgentServer.Structuring.Gacha\ArchivesReward.cs" />
+    <Compile Include="AgentServer.Structuring.Gacha\DiceBoardReward.cs" />
+    <Compile Include="AgentServer.Structuring.Gacha\GachaItem.cs" />
+    <Compile Include="AgentServer.Structuring.Gacha\GachaReward.cs" />
+    <Compile Include="AgentServer.Structuring.GuildP\GuildPlantMakeInfo.cs" />
+    <Compile Include="AgentServer.Structuring.GuildP\GuildPlantPointUseInfo.cs" />
+    <Compile Include="AgentServer.Structuring.GuildP\GuildPlantSellInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildFarmInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildInfo2.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildJoinRequestInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildLastMatchInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildMatchRank.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildMemberInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildProcessJoinRequestInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildSkillInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Guild\GuildUserInfo.cs" />
+    <Compile Include="AgentServer.Structuring.HotTim\HotTimeInfo.cs" />
+    <Compile Include="AgentServer.Structuring.HotTim\HotTimeRewardInfo.cs" />
+    <Compile Include="AgentServer.Structuring.HotTim\HotTimeRewardInfoDB.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ArinShopItemInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\AvatarItemInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\CardPackResultInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\CCubeOpenAck.cs" />
+    <Compile Include="AgentServer.Structuring.Item\CUBE_INFO.cs" />
+    <Compile Include="AgentServer.Structuring.Item\CUBE_INFO_PROCESS.cs" />
+    <Compile Include="AgentServer.Structuring.Item\eCUBE_ACCEPT_RESULT.cs" />
+    <Compile Include="AgentServer.Structuring.Item\eCUBE_ACCEPT_TYPE.cs" />
+    <Compile Include="AgentServer.Structuring.Item\eCUBE_INFO_RESULT.cs" />
+    <Compile Include="AgentServer.Structuring.Item\eCUBE_OPEN_RESULT.cs" />
+    <Compile Include="AgentServer.Structuring.Item\eCUBE_TYPE.cs" />
+    <Compile Include="AgentServer.Structuring.Item\eTRADE_ACTION.cs" />
+    <Compile Include="AgentServer.Structuring.Item\eTRADE_CHECK_RESULT.cs" />
+    <Compile Include="AgentServer.Structuring.Item\eTRADE_RESULT.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ExchangeItemInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ExtraAbilityItemAttrInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ExtraAbilityItemInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\GameDataShopPurchasingLimit.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ItemAttr.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ItemCPK.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ItemCubeInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ItemSetAttr.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ItemSetDesc.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ItemShopInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ItemTradeInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ItemTransformInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ITEM_OPEN_INFO.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ITEM_UNOPEN_INFO.cs" />
+    <Compile Include="AgentServer.Structuring.Item\MapCardInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\MapCardRateInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\MapCardRateInfo2.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopBuyAddBenefit.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopBuyCountList.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopBuyItemInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopBuyLimitCount.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopCategory.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopCategoryLimit.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopCategoryPurchasing.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopDisplayDateLimit.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopDisplayItem.cs" />
+    <Compile Include="AgentServer.Structuring.Item\ShopItemSell.cs" />
+    <Compile Include="AgentServer.Structuring.Item\TRADE_RESULT.cs" />
+    <Compile Include="AgentServer.Structuring.Item\UserItemDyeing.cs" />
+    <Compile Include="AgentServer.Structuring.Item\UserSlotItemKindInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Map\ChallengeMapInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Map\MapInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\CollectionMission.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\DailyMissionFinishedInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\DailyMissionInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\GuildMissionInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\MissionConditionData.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\MissionConditionInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\MissionInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\QuestInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\ReloadDailyMission.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\ServerReloadMissionDone.cs" />
+    <Compile Include="AgentServer.Structuring.Missio\UserMissionInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\eFarmProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\eShuProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\ePartyProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\eGuildProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\eTalesMarbleProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\eThankOfferingProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\eCommunityProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\eMyRoomProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\FarmProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\GuildPlantProtocol.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\Opcodes.cs" />
+    <Compile Include="AgentServer.Structuring.Opcode\RoomOpcodes.cs" />
+    <Compile Include="AgentServer.Structuring.Park\AnniversaryAction.cs" />
+    <Compile Include="AgentServer.Structuring.Park\AnniversaryEvent.cs" />
+    <Compile Include="AgentServer.Structuring.Park\CapsuleMachineData.cs" />
+    <Compile Include="AgentServer.Structuring.Park\CapsuleMachineItemNew.cs" />
+    <Compile Include="AgentServer.Structuring.Park\EventPickBoardInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Park\HuMongPickBoardData.cs" />
+    <Compile Include="AgentServer.Structuring.Park\HuMongPickBoardItemInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Room\RoomKindInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Room\RoomKind_UserMinMax.cs" />
+    <Compile Include="AgentServer.Structuring.Room\RoomSettings.cs" />
+    <Compile Include="AgentServer.Structuring.Shop\CombinationShopInfoEvent.cs" />
+    <Compile Include="AgentServer.Structuring.Shop\CombinationShopItemDetailInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shop\CombinationShopSchedule.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\DBShuActionInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\DBShuChangeAVInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\DBShuInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\DBShuUseItemInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ExploreInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ShuActionResultInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ShuAvatarInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ShuAvatarState.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ShuCharInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ShuEggInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ShuItemCPK.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ShuItemInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ShuRewardInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\ShuStatusInfo.cs" />
+    <Compile Include="AgentServer.Structuring.Shu\UserShuInfo.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnightsAdd_MaxLevelInfo.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnightsGroupInfo.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnightsGroupName.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnightStageInfo.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnightStageRewardDetailIn.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnightStageRewardInfo.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnightsUnitExpInfo.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnightsUnitStatus.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnights_AttackReward.cs" />
+    <Compile Include="AgentServer.Structuring.TalesK\TalesKnightUnitInfo.cs" />
+    <Compile Include="AgentServer.Structuring.User\ArchiveslInfo.cs" />
+    <Compile Include="AgentServer.Structuring.User\CoupleRankInfo.cs" />
+    <Compile Include="AgentServer.Structuring.User\FamilyInfo.cs" />
+    <Compile Include="AgentServer.Structuring.User\ItemStrengthen.cs" />
+    <Compile Include="AgentServer.Structuring.User\TutorialChannelInfo.cs" />
+    <Compile Include="AgentServer.Structuring.User\UserCoupleInfo.cs" />
+    <Compile Include="AgentServer.Structuring.User\UserGiftInfo.cs" />
+    <Compile Include="AgentServer.Structuring.User\UserItemCollectionInfo.cs" />
+    <Compile Include="AgentServer.Structuring.User\UserLoginInfo.cs" />
+    <Compile Include="AgentServer.Structuring.User\UserStorageItemAttr.cs" />
+    <Compile Include="AgentServer.Structuring.User\UserStorageItemInfo.cs" />
+    <Compile Include="AgentServer.Structuring\Account.cs" />
+    <Compile Include="AgentServer.Structuring\ConnectionInfo.cs" />
+    <Compile Include="AgentServer.Structuring\CurThankOfferingInfo.cs" />
+    <Compile Include="AgentServer.Structuring\NormalRoom.cs" />
+    <Compile Include="AgentServer.Structuring\Party.cs" />
+    <Compile Include="AgentServer.Structuring\Partys.cs" />
+    <Compile Include="AgentServer.Structuring\Rooms.cs" />
+    <Compile Include="AgentServer.Structuring\ServerSetting.cs" />
+    <Compile Include="AgentServer.Structuring\ServerStatus.cs" />
+    <Compile Include="AgentServer.Structuring\SettingInfo.cs" />
+    <Compile Include="AgentServer.Structuring\ThankOfferingRank.cs" />
+    <Compile Include="AgentServer.Structuring\ThankOfferingSchedule.cs" />
+    <Compile Include="AgentServer.Structuring\UserGameEndInfo.cs" />
+    <Compile Include="AgentServer.Utils.WinStructs\DebugObjectInformationClass.cs" />
+    <Compile Include="AgentServer.Utils.WinStructs\PROCESSINFOCLASS.cs" />
+    <Compile Include="AgentServer.Utils.WinStructs\SYSTEM_INFORMATION_CLASS.cs" />
+    <Compile Include="AgentServer.Utils.WinStructs\SYSTEM_KERNEL_DEBUGGER_INFORMA.cs" />
+    <Compile Include="AgentServer.Utils.WinStructs\ThreadAccess.cs" />
+    <Compile Include="AgentServer.Utils.WinStructs\ThreadInformationClass.cs" />
+    <Compile Include="AgentServer.Utils\NtStatus.cs" />
+    <Compile Include="AgentServer\AgentServer.cs" />
+    <Compile Include="AgentServer\Broadcast.cs" />
+    <Compile Include="AgentServer\CapsuleMachineManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgentServer\Conf.cs" />
+    <Compile Include="AgentServer\ConsoleTextBoxWriter.cs" />
+    <Compile Include="AgentServer\eBlockReason.cs" />
+    <Compile Include="AgentServer\eLoginFail.cs" />
+    <Compile Include="AgentServer\eRequestRankKind.cs" />
+    <Compile Include="AgentServer\eServerResult.cs" />
+    <Compile Include="AgentServer\eSTATE.cs" />
+    <Compile Include="AgentServer\DarkUi.cs" />
+    <Compile Include="AgentServer\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgentServer\InMemorySink.cs" />
+    <Compile Include="AgentServer\LBServer.cs" />
+    <Compile Include="AgentServer\MD5Helper.cs" />
+    <Compile Include="AgentServer\Program.cs" />
+    <Compile Include="AgentServer\RoomServer.cs" />
+    <Compile Include="AgentServer\ServerSettingManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgentServer\ServerSettingManager.Designer.cs">
+      <DependentUpon>ServerSettingManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgentServer\SocketCheck.cs" />
+    <Compile Include="FB.HackingToolHash\FB_HackingTool.cs" />
+    <Compile Include="FB.HackingToolHash\HackingToolHash.cs" />
+    <Compile Include="FB.HackingToolHash\HackingToolInfo.cs" />
+    <Compile Include="FB.LoginCheck\LoginCheck.cs" />
+    <Compile Include="FB.LoginCheck\LoginString.cs" />
+    <Compile Include="FB.LoginErrorBan\LoginErrorBan.cs" />
+    <Compile Include="FB.LoginErrorUserBan\LoginErrorUserBan.cs" />
+    <Compile Include="FB.LoginError\LoginError.cs" />
+    <Compile Include="FB.LoginInputInfo\LoginInputInfo.cs" />
+    <Compile Include="FB.LoginMakeKey\LoginMakeKey.cs" />
+    <Compile Include="FB.LoginSuccessInfo\LoginSuccessInfo.cs" />
+    <Compile Include="FB.LoginUserInfo\LoginCoupleInfo.cs" />
+    <Compile Include="FB.LoginUserInfo\LoginUserInfo.cs" />
+    <Compile Include="FB.ServerStatus\ServerStatus.cs" />
+    <Compile Include="LocalCommons.Cookie\Cookie.cs" />
+    <Compile Include="LocalCommons.Cryptography\Encrypt.cs" />
+    <Compile Include="LocalCommons.Logging\Bar.cs" />
+    <Compile Include="LocalCommons.Logging\Log.cs" />
+    <Compile Include="LocalCommons.Logging\Logger.cs" />
+    <Compile Include="LocalCommons.Logging\LogLevel.cs" />
+    <Compile Include="LocalCommons.Network\AsyncListener.cs" />
+    <Compile Include="LocalCommons.Network\AsyncListener2.cs" />
+    <Compile Include="LocalCommons.Network\AsyncListenerUDP.cs" />
+    <Compile Include="LocalCommons.Network\BufferPool.cs" />
+    <Compile Include="LocalCommons.Network\IConnection.cs" />
+    <Compile Include="LocalCommons.Network\IConnection2.cs" />
+    <Compile Include="LocalCommons.Network\IConnectionUDP.cs" />
+    <Compile Include="LocalCommons.Network\NetPacket.cs" />
+    <Compile Include="LocalCommons.Network\OnPacketReceive.cs" />
+    <Compile Include="LocalCommons.Network\PacketHandler0.cs" />
+    <Compile Include="LocalCommons.Network\PacketReader.cs" />
+    <Compile Include="LocalCommons.Network\PacketWriter.cs" />
+    <Compile Include="LocalCommons.Utilities\Utility.cs" />
+    <Compile Include="LocalCommons.Utilities\GameDate.cs" />
+    <Compile Include="LocalCommons\Class1.cs" />
+    <Compile Include="LocalCommons\DataToLoad.cs" />
+    <Compile Include="LocalCommons\Server.cs" />
+    <Compile Include="NestedDictionaryLib\NestedDictionary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TRCommon.Protocol\eRoomAgentProtocol.cs" />
+    <Compile Include="TRCommon\AdvancedAvatarInfo.cs" />
+    <Compile Include="TRCommon\AVATAR.cs" />
+    <Compile Include="TRCommon\AvatarEquipmentStatus.cs" />
+    <Compile Include="TRCommon\AvatarInfo.cs" />
+    <Compile Include="TRCommon\BuyingItemInfo.cs" />
+    <Compile Include="TRCommon\CActiveItemPropertyFunction.cs" />
+    <Compile Include="TRCommon\CActiveItems.cs" />
+    <Compile Include="TRCommon\CAvatarLock.cs" />
+    <Compile Include="TRCommon\CharAbilityAttr.cs" />
+    <Compile Include="TRCommon\CItemAttr.cs" />
+    <Compile Include="TRCommon\CItemAttrNormal.cs" />
+    <Compile Include="TRCommon\CItemInfo_RealTime.cs" />
+    <Compile Include="TRCommon\CItemTransformInfo.cs" />
+    <Compile Include="TRCommon\CNetShuItemInfo.cs" />
+    <Compile Include="TRCommon\cpk_type.cs" />
+    <Compile Include="TRCommon\CPropertyBuildManager.cs" />
+    <Compile Include="TRCommon\CPropertyCheckSource.cs" />
+    <Compile Include="TRCommon\CSetItemCompare.cs" />
+    <Compile Include="TRCommon\CUserItemAttrManager.cs" />
+    <Compile Include="TRCommon\eAttrApplyTargetType.cs" />
+    <Compile Include="TRCommon\eAvatarWearStateBit.cs" />
+    <Compile Include="TRCommon\eChangeUserActiveItemFlag.cs" />
+    <Compile Include="TRCommon\eCharacterKind.cs" />
+    <Compile Include="TRCommon\eCoupleItemType.cs" />
+    <Compile Include="TRCommon\eENCHANT_SYSTEM_RESULT.cs" />
+    <Compile Include="TRCommon\EFItemArry.cs" />
+    <Compile Include="TRCommon\eFuncItemPosition.cs" />
+    <Compile Include="TRCommon\eItemAttr.cs" />
+    <Compile Include="TRCommon\eItemEtc.cs" />
+    <Compile Include="TRCommon\eItemTransformFailedReason.cs" />
+    <Compile Include="TRCommon\eItemTransformType.cs" />
+    <Compile Include="TRCommon\eSET_ITEM_ATTR_TYPE.cs" />
+    <Compile Include="TRCommon\eShopPriceType.cs" />
+    <Compile Include="TRCommon\ExtensionMethods.cs" />
+    <Compile Include="TRCommon\ExtraAbilityInfo.cs" />
+    <Compile Include="TRCommon\FarmItemDataFromDatabase.cs" />
+    <Compile Include="TRCommon\GameAccArry.cs" />
+    <Compile Include="TRCommon\ItemAttrTable.cs" />
+    <Compile Include="TRCommon\ItemBillingContents.cs" />
+    <Compile Include="TRCommon\ItemDataFromDatabase.cs" />
+    <Compile Include="TRCommon\ItemKeyInfo.cs" />
+    <Compile Include="TRCommon\ItemPartArry.cs" />
+    <Compile Include="TRCommon\ITEM_GROUP.cs" />
+    <Compile Include="TRCommon\ITEM_POSITION.cs" />
+    <Compile Include="TRCommon\ITEM_POSITION_EF.cs" />
+    <Compile Include="TRCommon\ITEM_POSITION_GACC.cs" />
+    <Compile Include="TRCommon\MyRoomSlotInfo.cs" />
+    <Compile Include="TRCommon\NetCommonFunc.cs" />
+    <Compile Include="TRCommon\NetItemInfo.cs" />
+    <Compile Include="TRCommon\SetGroupItemDesc.cs" />
+    <Compile Include="TRCommon\SetItemAttrTable.cs" />
+    <Compile Include="TRCommon\SetItemDescTableEx.cs" />
+    <Compile Include="TRCommon\SetMemberItemDesc.cs" />
+    <Compile Include="TRCommon\ShopItemTable.cs" />
+    <Compile Include="TRCommon\Socket.cs" />
+    <Compile Include="TRCommon\TransformItemManager.cs" />
+    <Compile Include="TRCommon\UserEnchantItem.cs" />
+    <Compile Include="TRCommon\UserItemAttrInfo.cs" />
+    <Compile Include="Weighted_Randomizer\DynamicWeightedRandomizer.cs" />
+    <Compile Include="Weighted_Randomizer\IWeightedRandomizer.cs" />
+    <Compile Include="Weighted_Randomizer\RandomExtensionMethods.cs" />
+    <Compile Include="Weighted_Randomizer\StaticWeightedRandomizer.cs" />
+    <Compile Include="Weighted_Randomizer\ThreadAwareRandom.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AgentServer.Dialog\GMTool_DisconnectUser.resx">
+      <DependentUpon>GMTool_DisconnectUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgentServer\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgentServer\ServerSettingManager.resx">
+      <DependentUpon>ServerSettingManager.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>call "$(ProjectDir)..\tools\move_deps_to_binbin.bat" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

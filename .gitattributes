@@ -1,0 +1,1 @@
+database/tr_game_db_utf8mb4.sql filter=lfs diff=lfs merge=lfs -text

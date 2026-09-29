@@ -1,0 +1,10 @@
+namespace AgentServer.Structuring.Item
+{
+	public enum eTRADE_CHECK_RESULT
+	{
+		eTRADE_CHECK_OK,
+		eTRADE_CHECK_INVALID_ITEM,
+		eTRADE_CHECK_NOT_ENOUGH_STORAGE,
+		eTRADE_CHECK_UNKNOWN
+	}
+}

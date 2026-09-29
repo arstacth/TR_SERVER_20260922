@@ -1,0 +1,30 @@
+namespace AgentServer.Packet
+{
+	public enum eGiftItemFailed
+	{
+		eGiftItemFailed_UNKNOWN,
+		eGiftItemFailed_INVALID_NICKNAME,
+		eGiftItemFailed_ALREADY_HAVE,
+		eGiftItemFailed_ALREADY_GIFT,
+		eGiftItemFailed_NO_CHARACTER_HAVE,
+		eGiftItemFailed_ALREADY_HAVE_SAME_POSITION,
+		eGiftItemFailed_ALREADY_MARRIED,
+		eGiftItemFailed_CANNOT_SELF,
+		eGiftItemFailed_NOT_CHECKED_CONFIRMATION_PASSWORD,
+		eGiftItemFailed_NATEON_CHANNEL_CASH_ITEM_BILLING,
+		eGiftItemFailed_NOT_ENOUGH_LEVEL,
+		eGiftItemFailed_ENOUGHT_ADDFRIEND_ITEM,
+		eGiftItemFailed_NOT_COUPLE,
+		eGiftItemFailed_NOT_ENOUGH_COUPLE_LEVEL,
+		eGiftItemFailed_CANNOT_MYCOUPLE,
+		eGiftItemFailed_NOT_ENOUGH_LEVEL_LIMIT,
+		eGiftItemFailed_CANNOT_GIFT,
+		eGiftItemFailed_NO_RENEAL_SHOP_USE,
+		eGiftItemFailed_NO_RENWAL_SHOP_ITEM,
+		eGiftItemFailed_NO_RENWAL_SHOP_ITEM_INVALID,
+		eGiftItemFailed_NO_RENWAL_SHOP_ITEM_INVALID_DATE,
+		eGiftItemFailed_NO_RENWAL_SHOP_ITEM_INVALID_COUNT,
+		eGiftItemFailed_NO_RENWAL_SHOP_ITEM_INVALID_PAYMENT,
+		eGiftItemFailed_NO_RENWAL_SHOP_ITEM_INVALID_MILEAGE
+	}
+}

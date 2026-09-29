@@ -1,0 +1,11 @@
+namespace AgentServer.Structuring.Item
+{
+	public enum eTRADE_ACTION
+	{
+		eTRADE_ACTION_OK,
+		eTRADE_ACTION_STORAGE_FULL,
+		eTRADE_ACTION_INVALID_MOVE_REQ,
+		eTRADE_ACTION_ERROR_DESC,
+		eTRADE_ACTION_UNKNOWN
+	}
+}

@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{462AA3C8-5A57-4586-B40B-A8F3425E841D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>RoomServer</RootNamespace>
+    <AssemblyName>RoomServer</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Akka">
+      <HintPath>..\packages\Akka.dll</HintPath>
+    </Reference>
+    <Reference Include="Akka.Remote">
+      <HintPath>..\packages\Akka.Remote.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Akka.Logger.Serilog">
+      <HintPath>..\packages\Akka.Logger.Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Common">
+      <HintPath>..\packages\DotNetty.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Buffers">
+      <HintPath>..\packages\DotNetty.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Transport">
+      <HintPath>..\packages\DotNetty.Transport.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Codecs">
+      <HintPath>..\packages\DotNetty.Codecs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetty.Handlers">
+      <HintPath>..\packages\DotNetty.Handlers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\packages\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Crc32.NET">
+      <HintPath>..\packages\Crc32.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Iconic.Zlib.Netstandard">
+      <HintPath>..\packages\Iconic.Zlib.Netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="INIFileParser">
+      <HintPath>..\packages\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NetMsg">
+      <HintPath>..\packages\NetMsg.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File">
+      <HintPath>..\packages\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LocalCommons.Cookie\Cookie.cs" />
+    <Compile Include="LocalCommons.Cryptography\Encrypt.cs" />
+    <Compile Include="LocalCommons.Logging\Bar.cs" />
+    <Compile Include="LocalCommons.Logging\Log.cs" />
+    <Compile Include="LocalCommons.Logging\Logger.cs" />
+    <Compile Include="LocalCommons.Logging\LogLevel.cs" />
+    <Compile Include="LocalCommons.Network\AsyncListener.cs" />
+    <Compile Include="LocalCommons.Network\AsyncListener2.cs" />
+    <Compile Include="LocalCommons.Network\AsyncListenerUDP.cs" />
+    <Compile Include="LocalCommons.Network\BufferPool.cs" />
+    <Compile Include="LocalCommons.Network\IConnection.cs" />
+    <Compile Include="LocalCommons.Network\IConnection2.cs" />
+    <Compile Include="LocalCommons.Network\IConnectionUDP.cs" />
+    <Compile Include="LocalCommons.Network\NetPacket.cs" />
+    <Compile Include="LocalCommons.Network\OnPacketReceive.cs" />
+    <Compile Include="LocalCommons.Network\PacketHandler0.cs" />
+    <Compile Include="LocalCommons.Network\PacketReader.cs" />
+    <Compile Include="LocalCommons.Network\PacketWriter.cs" />
+    <Compile Include="LocalCommons.Utilities\Utility.cs" />
+    <Compile Include="LocalCommons\Class1.cs" />
+    <Compile Include="LocalCommons\DataToLoad.cs" />
+    <Compile Include="LocalCommons\Server.cs" />
+    <Compile Include="NestedDictionaryLib\IPCHECK.cs" />
+    <Compile Include="NestedDictionaryLib\NestedDictionary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoomServer.Cryptography\Encrypt.cs" />
+    <Compile Include="RoomServer.Database\MySqlCommandHelper.cs" />
+    <Compile Include="RoomServer.Function\FlagsHelper.cs" />
+    <Compile Include="RoomServer.Function\ListExtensions.cs" />
+    <Compile Include="RoomServer.Holders\AccountHolder.cs" />
+    <Compile Include="RoomServer.Holders\FarmHolder.cs" />
+    <Compile Include="RoomServer.Holders\GameModeHolder.cs" />
+    <Compile Include="RoomServer.Holders\GameRewardHolder.cs" />
+    <Compile Include="RoomServer.Holders\IceFlowerHolder.cs" />
+    <Compile Include="RoomServer.Holders\ItemHolder.cs" />
+    <Compile Include="RoomServer.Holders\ItemRacingHolder.cs" />
+    <Compile Include="RoomServer.Holders\MapCardHolder.cs" />
+    <Compile Include="RoomServer.Holders\MapHolder.cs" />
+    <Compile Include="RoomServer.Holders\MapItemHolder.cs" />
+    <Compile Include="RoomServer.Holders\RoomHolder.cs" />
+    <Compile Include="RoomServer.Holders\RunQuizHolder.cs" />
+    <Compile Include="RoomServer.Holders\ServerSettingHolder.cs" />
+    <Compile Include="RoomServer.Holders\SiegeModeHolder.cs" />
+    <Compile Include="RoomServer.Holders\SubjectKingHolder.cs" />
+    <Compile Include="RoomServer.Holders\ThankOfferingSystem.cs" />
+    <Compile Include="RoomServer.Holders\TowerEventHolder.cs" />
+    <Compile Include="RoomServer.Holders\TowerEventReady.cs" />
+    <Compile Include="RoomServer.Holders\TypingRunHolder.cs" />
+    <Compile Include="RoomServer.Packet.RoomServer\RM_To_AG_AddPublicFarmList.cs" />
+    <Compile Include="RoomServer.Packet.RoomServer\RM_To_AG_ChangeMap.cs" />
+    <Compile Include="RoomServer.Packet.RoomServer\RM_To_AG_ChangeSetting.cs" />
+    <Compile Include="RoomServer.Packet.RoomServer\RM_To_AG_CreateRoom_AddList_AC.cs" />
+    <Compile Include="RoomServer.Packet.RoomServer\RM_To_AG_PlayingUpdate.cs" />
+    <Compile Include="RoomServer.Packet.RoomServer\RM_To_AG_UpdateFarmFishingRewa.cs" />
+    <Compile Include="RoomServer.Packet.RoomServer\RM_To_AG_UpdateTeamInfo.cs" />
+    <Compile Include="RoomServer.Packet.RoomServer\RM_TO_User.cs" />
+    <Compile Include="RoomServer.Packet.Send\AllocatePartner.cs" />
+    <Compile Include="RoomServer.Packet.Send\Amsan_Goal_Button.cs" />
+    <Compile Include="RoomServer.Packet.Send\Amsan_LapTime.cs" />
+    <Compile Include="RoomServer.Packet.Send\Amsan_LapTimeControl.cs" />
+    <Compile Include="RoomServer.Packet.Send\Amsan_Step_Button.cs" />
+    <Compile Include="RoomServer.Packet.Send\Amsan_Step_Button_Push.cs" />
+    <Compile Include="RoomServer.Packet.Send\AnubisOpenTime.cs" />
+    <Compile Include="RoomServer.Packet.Send\AnubisUserPoint.cs" />
+    <Compile Include="RoomServer.Packet.Send\AssaultModeAttackLimitInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\AssaultModeRebirth_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\AssaultModeUseItem_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\AssaultRaidOpenTime.cs" />
+    <Compile Include="RoomServer.Packet.Send\AssaultRaidPoint.cs" />
+    <Compile Include="RoomServer.Packet.Send\Bomb_CountingStartAck.cs" />
+    <Compile Include="RoomServer.Packet.Send\Bomb_RaceExpldingNotify.cs" />
+    <Compile Include="RoomServer.Packet.Send\Bomb_RaceTransferBombAck.cs" />
+    <Compile Include="RoomServer.Packet.Send\BonusStage_ExtraPoint.cs" />
+    <Compile Include="RoomServer.Packet.Send\BonusStage_PointList.cs" />
+    <Compile Include="RoomServer.Packet.Send\BonusStage_RankList.cs" />
+    <Compile Include="RoomServer.Packet.Send\BonusStage_RewardList.cs" />
+    <Compile Include="RoomServer.Packet.Send\BounsItemEat_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\BounsItemMake_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\CancelLookingForGuildMatch.cs" />
+    <Compile Include="RoomServer.Packet.Send\CannotFindGuildForMatch.cs" />
+    <Compile Include="RoomServer.Packet.Send\ChangeCoupleRingACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\ChangeFarmMapTypeByItem_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\ChangeFarmMapTypeBySlot_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\ChangeFarmName_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\ChangeFarmName_FailAck.cs" />
+    <Compile Include="RoomServer.Packet.Send\ChangeFarmPassword_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\ChangeFarmSkybox_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\ChargeCharacterEnergy_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\CheckProposeInfoACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\ClearTimeSection_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\ClientCheckAutoBanACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\CollectFishedItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\CollectFishedItemAns.cs" />
+    <Compile Include="RoomServer.Packet.Send\CollectFishedItemFail.cs" />
+    <Compile Include="RoomServer.Packet.Send\CorunMode_DecreaseBossEnergy_A.cs" />
+    <Compile Include="RoomServer.Packet.Send\CorunMode_DecreaseObjectBossEn.cs" />
+    <Compile Include="RoomServer.Packet.Send\CorunMode_IncreaseObjectBossEn.cs" />
+    <Compile Include="RoomServer.Packet.Send\CorunMode_SetBossEnergy_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\CorunMode_SetObjectBossEnergy_.cs" />
+    <Compile Include="RoomServer.Packet.Send\CoupleInfoACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\DecreaseCharacterEnergy_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\DecreaseObjectEnergy_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\DisconnectPacket.cs" />
+    <Compile Include="RoomServer.Packet.Send\DissolveFamilyOKACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\DissolveFamilyOKACK2.cs" />
+    <Compile Include="RoomServer.Packet.Send\EnterTimeSection_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\eRoom_CHANGE_USER_ACTIVE_ITEMS.cs" />
+    <Compile Include="RoomServer.Packet.Send\eRoom_CHANGE_USER_ACTIVE_ITEM_.cs" />
+    <Compile Include="RoomServer.Packet.Send\eRoom_CHANGE_USER_AVATAR_LOCK.cs" />
+    <Compile Include="RoomServer.Packet.Send\eRoom_CHANGE_USER_ITEM_ATTR.cs" />
+    <Compile Include="RoomServer.Packet.Send\eRoom_ROOMUSER_ACTIVE_FUNCITEM.cs" />
+    <Compile Include="RoomServer.Packet.Send\eRoom_UPDATE_AVATAR_INFO.cs" />
+    <Compile Include="RoomServer.Packet.Send\eRoom_UPDATE_ITEM_ONOFF_INFO.cs" />
+    <Compile Include="RoomServer.Packet.Send\eServer_COUPLE_CREATE_COUPLE_I.cs" />
+    <Compile Include="RoomServer.Packet.Send\FamilyInfoACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\FarmAction_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\FarmCraft_ModifyFarmMapOK.cs" />
+    <Compile Include="RoomServer.Packet.Send\Farm_ChangeFarmMapTypeBySlot_U.cs" />
+    <Compile Include="RoomServer.Packet.Send\Farm_ClearUserFarmMapInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\Farm_FFD20133.cs" />
+    <Compile Include="RoomServer.Packet.Send\FishedItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\FishedItemFail.cs" />
+    <Compile Include="RoomServer.Packet.Send\FishingPacket.cs" />
+    <Compile Include="RoomServer.Packet.Send\FishingPacketFail.cs" />
+    <Compile Include="RoomServer.Packet.Send\FishNetInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\FishRecordInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\FootStep_GoalIn.cs" />
+    <Compile Include="RoomServer.Packet.Send\FootStep_GoalIn_CountDown.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoomUpdateGuildACK3.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_Alive.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_AllSync.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_BackPrepareGuildMatch.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_CancelCountDown.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_CancelGuildMatching.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_CannotStart.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_ChangeGuildMatchRoomN.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_ChangeMap_FF0906.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_ChangeMap_FF4E03.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_ChangeSetting.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RoomOptionAck.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RumbleGardenActionAck.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_ChangeStatus.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_ControlRoomPos.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_CreateRoomError.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_DeleteKeepItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_DrawItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_EndLoading.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_EnterRoomError.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_EnterRoomOK.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_eRoom_START_GAME_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_FF3F02.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GameOver.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GameResult2.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GameUpdateEXP.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GameUpdateEXP_New.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GetRoomList.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GetRoomMaster.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GetVertificationInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GiveUpItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GiveUpMapItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GoalInData.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GoodsInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_GuildMatchRoomInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_JoinGuildMatch.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_KickPlayer.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_KickPlayer2.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_LapTimeCountdwon.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_LapTimeCountdwon2.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_LeaveRoomUser_0XA9.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_LevelUP.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_LockKeepItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_MapControl.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_MapGenerateItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_MiniGame_602.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_MiniGame_GetPoint.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_MiniGame_Respawn.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_MiniGame_RoundTime.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_MiniGame_UpdatePoint.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_PassBaton.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_PassVertification.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_PickMapItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_PlayerBuff.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_PlayerPosList.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_ProcessInviteForGuild.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RandomEnterRoomError.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RegisterSuccess.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RegItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RelayChangeSlotState.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RelaySlotCannotChange.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RemoveRoomUser.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_Result.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RewardResult.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RoomChat.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RoomPosReady.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RoomPosRelayTeam.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_RoomPosTeam.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_SendPlayerInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_SendRoomInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_SortedHeroClassGameIn.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_SpecialRewardItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_StartError.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_StartGame2.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_StartGuildMatching.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_StartLoading.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_StartPassBaton.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_StartTimeOutCount.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_StepOnButton.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_TriggerMapEvent.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_UnknownResponse.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_UnknownResponse2.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_UpdateGuildMatchRoomI.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_UpdateIndividualGameR.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_UseItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_UserState.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_WaitPassBaton.cs" />
+    <Compile Include="RoomServer.Packet.Send\GameRoom_WaitPassBaton2.cs" />
+    <Compile Include="RoomServer.Packet.Send\GetCurrentMapFarmCraftItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\GetFarmCraftMapData.cs" />
+    <Compile Include="RoomServer.Packet.Send\GetFarmItemPos_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\GetRivalGuildInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\GuildMatch_GetRankMyGuild.cs" />
+    <Compile Include="RoomServer.Packet.Send\GuildMatch_GetRankRange.cs" />
+    <Compile Include="RoomServer.Packet.Send\IceFlower_GetQuestion.cs" />
+    <Compile Include="RoomServer.Packet.Send\IncreaseAnimalSizeOK.cs" />
+    <Compile Include="RoomServer.Packet.Send\InitMapBounsItem_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\InitProposeInfoACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\InvitingForGuildMatch.cs" />
+    <Compile Include="RoomServer.Packet.Send\ItemRacing_GetAbilityAck.cs" />
+    <Compile Include="RoomServer.Packet.Send\ItemRacing_RemoveAbility.cs" />
+    <Compile Include="RoomServer.Packet.Send\ItemRacing_UseAbility.cs" />
+    <Compile Include="RoomServer.Packet.Send\ITEM_ONOFF_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\LevelUPNotice.cs" />
+    <Compile Include="RoomServer.Packet.Send\LookingForGuildMatch.cs" />
+    <Compile Include="RoomServer.Packet.Send\MakeFamilyCheckFailACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\MakeFamilyCheckOKACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\MakeFamilyOKACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\MapBounsItemEat_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\ModifyCoupleInfoACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\ModifyCoupleNameACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\ModifyFarmMapInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\ModifyObjectValueInfoOK.cs" />
+    <Compile Include="RoomServer.Packet.Send\MoveToGameRoom.cs" />
+    <Compile Include="RoomServer.Packet.Send\NewTeamLeader.cs" />
+    <Compile Include="RoomServer.Packet.Send\NoticePacket.cs" />
+    <Compile Include="RoomServer.Packet.Send\PlayerFishedItem.cs" />
+    <Compile Include="RoomServer.Packet.Send\PublicFarmOpen_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\PublicFarmOpen_FailAck.cs" />
+    <Compile Include="RoomServer.Packet.Send\RandomGameOver.cs" />
+    <Compile Include="RoomServer.Packet.Send\RandomGameOver_Die1.cs" />
+    <Compile Include="RoomServer.Packet.Send\RandomGameOver_Die2.cs" />
+    <Compile Include="RoomServer.Packet.Send\ReloadFarmTypeNum.cs" />
+    <Compile Include="RoomServer.Packet.Send\RemoveCoupleACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\ReqChangeTeamLeader.cs" />
+    <Compile Include="RoomServer.Packet.Send\RequestQuizList_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\RestoreAnimalDefaultSizeOK.cs" />
+    <Compile Include="RoomServer.Packet.Send\SaveUserFarmSlotInfoFail_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\SaveUserFarmSlotInfo_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\SendFarmInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\SendFarmItemPos.cs" />
+    <Compile Include="RoomServer.Packet.Send\SetCharacterEnergy_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\SetClearLimitTime_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\SetObjectInfo_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\SetWeddingItemACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\SubjectKing_GetQuestionAck.cs" />
+    <Compile Include="RoomServer.Packet.Send\TeamStatus.cs" />
+    <Compile Include="RoomServer.Packet.Send\TowerEvent_Enter_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\TowerEvent_GetBox_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\TowerEvent_GiveUP_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\TowerEvent_RemainBox2_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\TowerEvent_RemainBox_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\TowerEvent_TimeInfo_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\TowerEvent_UserGetItemInfo_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\TriggerCheckInObjectEvent_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\TriggerObjectEvent_Ack.cs" />
+    <Compile Include="RoomServer.Packet.Send\TypingRun_EnterText.cs" />
+    <Compile Include="RoomServer.Packet.Send\TypingRun_GoblinRacingQuestion.cs" />
+    <Compile Include="RoomServer.Packet.Send\TypingRun_GoblinRacingTypingDo.cs" />
+    <Compile Include="RoomServer.Packet.Send\TypingRun_ReqText.cs" />
+    <Compile Include="RoomServer.Packet.Send\UpdateCoupleInfo2ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\UpdateCoupleInfoACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\UseCoupleExpAddItemFail_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\UseCoupleExpAddItem_ACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\UserLevelUPEXPInfo.cs" />
+    <Compile Include="RoomServer.Packet.Send\WeddingDivorceACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\WeddingDivorceRejectACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\WeddingFinishACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\WeddingReadyACK.cs" />
+    <Compile Include="RoomServer.Packet.Send\WeddingSuitForDivorceACK.cs" />
+    <Compile Include="RoomServer.Packet\AssaultModeHandle.cs" />
+    <Compile Include="RoomServer.Packet\AvatarLockHandle.cs" />
+    <Compile Include="RoomServer.Packet\CoupleHandle.cs" />
+    <Compile Include="RoomServer.Packet\FarmHandle.cs" />
+    <Compile Include="RoomServer.Packet\FarmRoomHandle.cs" />
+    <Compile Include="RoomServer.Packet\FishingHandle.cs" />
+    <Compile Include="RoomServer.Packet\GameModeHandle.cs" />
+    <Compile Include="RoomServer.Packet\GameRoomEvent.cs" />
+    <Compile Include="RoomServer.Packet\GameRoomHandle.cs" />
+    <Compile Include="RoomServer.Packet\GuildMatchHandle.cs" />
+    <Compile Include="RoomServer.Packet\ItemHandle.cs" />
+    <Compile Include="RoomServer.Packet\LobbyHandle.cs" />
+    <Compile Include="RoomServer.Packet\MyRoomHandle.cs" />
+    <Compile Include="RoomServer.Packet\RoomServerHandle.cs" />
+    <Compile Include="RoomServer.Packet\TowerEvent.cs" />
+    <Compile Include="RoomServer.Properties\Resources.cs" />
+    <Compile Include="RoomServer.Properties\Settings.cs" />
+    <Compile Include="RoomServer.Room\GameLogic.cs" />
+    <Compile Include="RoomServer.Room\RoomResultTable.cs" />
+    <Compile Include="RoomServer.Structuring.Farm\FarmCraftMapData.cs" />
+    <Compile Include="RoomServer.Structuring.Farm\FarmCraftMapItem.cs" />
+    <Compile Include="RoomServer.Structuring.Farm\FarmItem.cs" />
+    <Compile Include="RoomServer.Structuring.Farm\FarmItemAttr.cs" />
+    <Compile Include="RoomServer.Structuring.Farm\FarmMapInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Farm\FarmRoomInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Farm\MyFarmInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Fishing\FishingBait.cs" />
+    <Compile Include="RoomServer.Structuring.Fishing\FishingEquip.cs" />
+    <Compile Include="RoomServer.Structuring.Fishing\FishingItem.cs" />
+    <Compile Include="RoomServer.Structuring.Fishing\UserFishedItem.cs" />
+    <Compile Include="RoomServer.Structuring.GameRew\GameRewardGroupInfo.cs" />
+    <Compile Include="RoomServer.Structuring.GameRew\GameRewardGroupRate.cs" />
+    <Compile Include="RoomServer.Structuring.GameRew\GameRewardResult.cs" />
+    <Compile Include="RoomServer.Structuring.GameRew\GameRewardSubGroupInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildFarmInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildInfo2.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildJoinRequestInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildLastMatchInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildMatchRank.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildMemberInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildProcessJoinRequestInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildSkillInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Guild\GuildUserInfo.cs" />
+    <Compile Include="RoomServer.Structuring.IceFlow\IceFlowerText.cs" />
+    <Compile Include="RoomServer.Structuring.ItemRac\ItemRacingAbility.cs" />
+    <Compile Include="RoomServer.Structuring.ItemRac\ItemRacingGroupAbility.cs" />
+    <Compile Include="RoomServer.Structuring.ItemRac\ItemRacingGroupSetting.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ArinShopItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\AvatarItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\CardPackResultInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ExchangeItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ExtraAbilityItemAttrInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ExtraAbilityItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\GameDataShopPurchasingLimit.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ItemAttr.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ItemCPK.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ItemCubeInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ItemSetAttr.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ItemSetDesc.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ItemShopInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ItemTransformInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\MapCardInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\MapCardRateInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\MapCardRateInfo2.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopBuyAddBenefit.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopBuyCountList.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopBuyItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopBuyLimitCount.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopCategory.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopCategoryLimit.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopCategoryPurchasing.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopDisplayDateLimit.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopDisplayItem.cs" />
+    <Compile Include="RoomServer.Structuring.Item\ShopItemSell.cs" />
+    <Compile Include="RoomServer.Structuring.Item\UserItemDyeing.cs" />
+    <Compile Include="RoomServer.Structuring.Item\UserSlotItemKindInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Map\AssaultModeRewardInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Map\BonusItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Map\BonusStageMapInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Map\CapsuleItemMapJoint.cs" />
+    <Compile Include="RoomServer.Structuring.Map\ChallengeMapInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Map\MapCapsuleItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Map\MapDrawItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Map\MapInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Map\MapRoomKind.cs" />
+    <Compile Include="RoomServer.Structuring.Map\RunlympicMapInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Opcode\eFarmCraftProtocol.cs" />
+    <Compile Include="RoomServer.Structuring.Opcode\FarmProtocol.cs" />
+    <Compile Include="RoomServer.Structuring.Opcode\Opcodes.cs" />
+    <Compile Include="RoomServer.Structuring.Opcode\RoomOpcodes.cs" />
+    <Compile Include="RoomServer.Structuring.Room\ObjectBoss.cs" />
+    <Compile Include="RoomServer.Structuring.Room\RoomKindInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Room\RoomKind_UserMinMax.cs" />
+    <Compile Include="RoomServer.Structuring.Room\RoomSettings.cs" />
+    <Compile Include="RoomServer.Structuring.Room\SlotInfo.cs" />
+    <Compile Include="RoomServer.Structuring.RoundDe\RoundDeathStat.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\DBShuActionInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\DBShuChangeAVInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\DBShuInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\DBShuUseItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ExploreInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ShuActionResultInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ShuAvatarInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ShuAvatarState.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ShuCharInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ShuEggInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ShuItemCPK.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ShuItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ShuRewardInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\ShuStatusInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Shu\UserShuInfo.cs" />
+    <Compile Include="RoomServer.Structuring.SiegeMo\SiegeModeInfo.cs" />
+    <Compile Include="RoomServer.Structuring.Subject\SubjectKingQuestionAnswer.cs" />
+    <Compile Include="RoomServer.Structuring.TowerEv\Tower_BoxData.cs" />
+    <Compile Include="RoomServer.Structuring.TypingR\TypingRunStat.cs" />
+    <Compile Include="RoomServer.Structuring.TypingR\TypingRunText.cs" />
+    <Compile Include="RoomServer.Structuring.User\ArchiveslInfo.cs" />
+    <Compile Include="RoomServer.Structuring.User\FamilyInfo.cs" />
+    <Compile Include="RoomServer.Structuring.User\ItemStrengthen.cs" />
+    <Compile Include="RoomServer.Structuring.User\TutorialChannelInfo.cs" />
+    <Compile Include="RoomServer.Structuring.User\UserCoupleInfo.cs" />
+    <Compile Include="RoomServer.Structuring.User\UserGiftInfo.cs" />
+    <Compile Include="RoomServer.Structuring.User\UserItemCollectionInfo.cs" />
+    <Compile Include="RoomServer.Structuring.User\UserLoginInfo.cs" />
+    <Compile Include="RoomServer.Structuring.User\UserStorageItemAttr.cs" />
+    <Compile Include="RoomServer.Structuring.User\UserStorageItemInfo.cs" />
+    <Compile Include="RoomServer.Structuring\Account.cs" />
+    <Compile Include="RoomServer.Structuring\CGameResultDesc.cs" />
+    <Compile Include="RoomServer.Structuring\CorunModeResult.cs" />
+    <Compile Include="RoomServer.Structuring\CurThankOfferingInfo.cs" />
+    <Compile Include="RoomServer.Structuring\DropList.cs" />
+    <Compile Include="RoomServer.Structuring\NormalRoom.cs" />
+    <Compile Include="RoomServer.Structuring\Rooms.cs" />
+    <Compile Include="RoomServer.Structuring\ServerSetting.cs" />
+    <Compile Include="RoomServer.Structuring\ServerStatus.cs" />
+    <Compile Include="RoomServer.Structuring\SettingInfo.cs" />
+    <Compile Include="RoomServer.Structuring\ThankOfferingSchedule.cs" />
+    <Compile Include="RoomServer\AgentServer.cs" />
+    <Compile Include="RoomServer\Conf.cs" />
+    <Compile Include="RoomServer\ConsoleTextBoxWriter.cs" />
+    <Compile Include="RoomServer\eServerResult.cs" />
+    <Compile Include="RoomServer\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RoomServer\InMemorySink.cs" />
+    <Compile Include="RoomServer\Program.cs" />
+    <Compile Include="TRCommon.Protocol\eRoomAgentProtocol.cs" />
+    <Compile Include="TRCommon\AdvancedAvatarInfo.cs" />
+    <Compile Include="TRCommon\AVATAR.cs" />
+    <Compile Include="TRCommon\AvatarEquipmentStatus.cs" />
+    <Compile Include="TRCommon\AvatarInfo.cs" />
+    <Compile Include="TRCommon\BuyingItemInfo.cs" />
+    <Compile Include="TRCommon\CActiveItemPropertyFunction.cs" />
+    <Compile Include="TRCommon\CActiveItems.cs" />
+    <Compile Include="TRCommon\CAvatarLock.cs" />
+    <Compile Include="TRCommon\CharAbilityAttr.cs" />
+    <Compile Include="TRCommon\CItemAttr.cs" />
+    <Compile Include="TRCommon\CItemAttrNormal.cs" />
+    <Compile Include="TRCommon\CItemInfo_RealTime.cs" />
+    <Compile Include="TRCommon\CItemTransformInfo.cs" />
+    <Compile Include="TRCommon\CNetShuItemInfo.cs" />
+    <Compile Include="TRCommon\cpk_type.cs" />
+    <Compile Include="TRCommon\CPropertyBuildManager.cs" />
+    <Compile Include="TRCommon\CPropertyCheckSource.cs" />
+    <Compile Include="TRCommon\CSetItemCompare.cs" />
+    <Compile Include="TRCommon\CUserItemAttrManager.cs" />
+    <Compile Include="TRCommon\eAttrApplyTargetType.cs" />
+    <Compile Include="TRCommon\eAvatarWearStateBit.cs" />
+    <Compile Include="TRCommon\eChangeUserActiveItemFlag.cs" />
+    <Compile Include="TRCommon\eCharacterKind.cs" />
+    <Compile Include="TRCommon\eCoupleItemType.cs" />
+    <Compile Include="TRCommon\eENCHANT_SYSTEM_RESULT.cs" />
+    <Compile Include="TRCommon\EFItemArry.cs" />
+    <Compile Include="TRCommon\eFuncItemPosition.cs" />
+    <Compile Include="TRCommon\eItemAttr.cs" />
+    <Compile Include="TRCommon\eItemEtc.cs" />
+    <Compile Include="TRCommon\eItemTransformFailedReason.cs" />
+    <Compile Include="TRCommon\eItemTransformType.cs" />
+    <Compile Include="TRCommon\eSET_ITEM_ATTR_TYPE.cs" />
+    <Compile Include="TRCommon\eShopPriceType.cs" />
+    <Compile Include="TRCommon\ExtraAbilityInfo.cs" />
+    <Compile Include="TRCommon\FarmItemDataFromDatabase.cs" />
+    <Compile Include="TRCommon\GameAccArry.cs" />
+    <Compile Include="TRCommon\ItemAttrTable.cs" />
+    <Compile Include="TRCommon\ItemBillingContents.cs" />
+    <Compile Include="TRCommon\ItemDataFromDatabase.cs" />
+    <Compile Include="TRCommon\ItemKeyInfo.cs" />
+    <Compile Include="TRCommon\ItemPartArry.cs" />
+    <Compile Include="TRCommon\ITEM_GROUP.cs" />
+    <Compile Include="TRCommon\ITEM_POSITION.cs" />
+    <Compile Include="TRCommon\ITEM_POSITION_EF.cs" />
+    <Compile Include="TRCommon\ITEM_POSITION_GACC.cs" />
+    <Compile Include="TRCommon\NetCommonFunc.cs" />
+    <Compile Include="TRCommon\NetItemInfo.cs" />
+    <Compile Include="TRCommon\SetGroupItemDesc.cs" />
+    <Compile Include="TRCommon\SetItemAttrTable.cs" />
+    <Compile Include="TRCommon\SetItemDescTableEx.cs" />
+    <Compile Include="TRCommon\SetMemberItemDesc.cs" />
+    <Compile Include="TRCommon\ShopItemTable.cs" />
+    <Compile Include="TRCommon\TransformItemManager.cs" />
+    <Compile Include="TRCommon\UserItemAttrInfo.cs" />
+    <Compile Include="Weighted_Randomizer\DynamicWeightedRandomizer.cs" />
+    <Compile Include="Weighted_Randomizer\IWeightedRandomizer.cs" />
+    <Compile Include="Weighted_Randomizer\RandomExtensionMethods.cs" />
+    <Compile Include="Weighted_Randomizer\StaticWeightedRandomizer.cs" />
+    <Compile Include="Weighted_Randomizer\ThreadAwareRandom.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="RoomServer\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>call "$(ProjectDir)..\tools\move_deps_to_binbin.bat" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
