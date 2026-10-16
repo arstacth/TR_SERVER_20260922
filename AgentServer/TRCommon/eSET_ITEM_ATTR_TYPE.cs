@@ -1,0 +1,9 @@
+namespace TRCommon
+{
+	public enum eSET_ITEM_ATTR_TYPE
+	{
+		SET_ITEM_ATTR_PARTS,
+		SET_ITEM_ATTR_FULLSET,
+		SET_ITEM_ATTR_ADDON
+	}
+}

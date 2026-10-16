@@ -1,0 +1,16 @@
+namespace TRCommon
+{
+	public enum eItemTransformFailedReason
+	{
+		eItemTransformFailedReason_NO_TRANSFORM_ITEM,
+		eItemTransformFailedReason_ITEM_DELETE_ERROR,
+		eItemTransformFailedReason_NO_TARGET_ITEM,
+		eItemTransformFailedReason_INVALID_TRANSFORM_INFO,
+		eItemTransformFailedReason_INVALID_TRANSFORM_ITEM,
+		eItemTransformFailedReason_TARGET_ITEM_IS_EXPIRED,
+		eItemTransformFailedReason_TARGET_ITEM_IS_ALREADY_TRANSFORMED,
+		eItemTransformFailedReason_TARGET_ITEM_IS_ALREADY_UPGRADED,
+		eItemTransformFailedReason_DB_ERROR,
+		eItemTransformFailedReason_UNKNOWN_ERROR
+	}
+}

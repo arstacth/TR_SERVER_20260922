@@ -1,0 +1,8 @@
+namespace TRCommon
+{
+	public enum ITEM_POSITION_EF
+	{
+		ITEM_POSITION_EF_HEADBACK,
+		ITEM_POSITION_EF_COUNT
+	}
+}

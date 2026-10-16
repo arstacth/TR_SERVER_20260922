@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5C9B50A3-7156-4D21-A88F-BFDC1B386A62}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CommunityAgentServer</RootNamespace>
+    <AssemblyName>CommunityAgentServer</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommunityAgentServer.Network.C\ClientConnection.cs" />
+    <Compile Include="CommunityAgentServer.Network\CmIntercept.cs" />
+    <Compile Include="CommunityAgentServer.Packet.Se\GetMyProfile.cs" />
+    <Compile Include="CommunityAgentServer.Packet.Se\GetProfileByNickName.cs" />
+    <Compile Include="CommunityAgentServer.Packet.Se\NP_0x07.cs" />
+    <Compile Include="CommunityAgentServer.Packet.Se\NP_0x08.cs" />
+    <Compile Include="CommunityAgentServer.Packet.Se\NP_Byte.cs" />
+    <Compile Include="CommunityAgentServer.Packet.Se\NP_Hex.cs" />
+    <Compile Include="CommunityAgentServer.Packet.Se\SetMyProfile.cs" />
+    <Compile Include="CommunityAgentServer.Packet.Se\SetMyProfileFail.cs" />
+    <Compile Include="CommunityAgentServer.Packet\CommonHandle.cs" />
+    <Compile Include="CommunityAgentServer.Structuring.Opcode\eCommunityAgentOpcode.cs" />
+    <Compile Include="CommunityAgentServer.Structuri\Account.cs" />
+    <Compile Include="CommunityAgentServer.Structuri\ConnectionInfo.cs" />
+    <Compile Include="CommunityAgentServer\CommunityAgent.cs" />
+    <Compile Include="CommunityAgentServer\CommunityAgentHandler.cs" />
+    <Compile Include="CommunityAgentServer\Conf.cs" />
+    <Compile Include="CommunityAgentServer\Program.cs" />
+    <Compile Include="LocalCommons.Cookie\Cookie.cs" />
+    <Compile Include="LocalCommons.Cryptography\Encrypt.cs" />
+    <Compile Include="LocalCommons.Logging\Bar.cs" />
+    <Compile Include="LocalCommons.Logging\Log.cs" />
+    <Compile Include="LocalCommons.Logging\Logger.cs" />
+    <Compile Include="LocalCommons.Logging\LogLevel.cs" />
+    <Compile Include="LocalCommons.Network\AsyncListener.cs" />
+    <Compile Include="LocalCommons.Network\AsyncListener2.cs" />
+    <Compile Include="LocalCommons.Network\AsyncListenerUDP.cs" />
+    <Compile Include="LocalCommons.Network\BufferPool.cs" />
+    <Compile Include="LocalCommons.Network\IConnection.cs" />
+    <Compile Include="LocalCommons.Network\IConnection2.cs" />
+    <Compile Include="LocalCommons.Network\IConnectionUDP.cs" />
+    <Compile Include="LocalCommons.Network\NetPacket.cs" />
+    <Compile Include="LocalCommons.Network\OnPacketReceive.cs" />
+    <Compile Include="LocalCommons.Network\PacketHandler0.cs" />
+    <Compile Include="LocalCommons.Network\PacketReader.cs" />
+    <Compile Include="LocalCommons.Network\PacketWriter.cs" />
+    <Compile Include="LocalCommons.Utilities\Utility.cs" />
+    <Compile Include="LocalCommons\Class1.cs" />
+    <Compile Include="LocalCommons\DataToLoad.cs" />
+    <Compile Include="LocalCommons\Server.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Akka">
+      <HintPath>..\packages\Akka.dll</HintPath>
+    </Reference>
+    <Reference Include="Akka.Logger.Serilog">
+      <HintPath>..\packages\Akka.Logger.Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Crc32.NET">
+      <HintPath>..\packages\Crc32.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="INIFileParser">
+      <HintPath>..\packages\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console">
+      <HintPath>..\packages\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File">
+      <HintPath>..\packages\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsFirewallHelper">
+      <HintPath>..\packages\WindowsFirewallHelper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>call "$(ProjectDir)..\tools\move_deps_to_binbin.bat" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

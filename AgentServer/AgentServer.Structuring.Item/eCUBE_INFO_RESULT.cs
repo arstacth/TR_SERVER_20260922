@@ -1,0 +1,11 @@
+namespace AgentServer.Structuring.Item
+{
+	public enum eCUBE_INFO_RESULT
+	{
+		eCUBE_INFO_RESULT_OK,
+		eCUBE_INFO_RESULT_NO_CUBE,
+		eCUBE_INFO_RESULT_INVALID_STATE,
+		eCUBE_INFO_RESULT_DB_ERROR,
+		eCUBE_INFO_NOMORE_STORAGE
+	}
+}

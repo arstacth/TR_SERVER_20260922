@@ -1,0 +1,18 @@
+namespace AgentServer.Structuring.Opcode
+{
+	public enum ePartyProtocol
+	{
+		INVITE_REQ = 0,
+		ACCEPT_INVITE_REQ = 1,
+		LEAVE_REQ = 2,
+		KICK_REQ = 4,
+		CHANGE_LEADER_REQ = 8,
+		RECRUIT_REQ = 14,
+		RECRUIT_CANCEL_REQ = 15,
+		GET_PARTY_INDEX_REQ = 16,
+		GET_PARTY_USER_LIST_REQ = 19,
+		JOIN_REQUEST_REQ = 20,
+		JOIN_REQUEST_REJECT_REQ = 23,
+		GET_JOIN_REQUEST_LIST_REQ = 26,
+	}
+}
